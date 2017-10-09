@@ -27,12 +27,10 @@ public class abdulrahmanAlabrashGraph extends UnweightedGraph {
         if (g == null || g.getSize() == 0) {
             return rst;
         }
-
         HashMap<Integer, Boolean> map = new HashMap<Integer, Boolean>();
         for (int i = 0; i < g.getSize(); i++) {
             map.put((Integer) g.getVertices().get(i), false);
         }
-
         for (int i = 0; i <g.getSize(); i++) {
             if (!map.get((Integer) g.getVertices().get(i))) {
                 bfs(rst, (Integer) g.getVertices().get(i), map,g);
