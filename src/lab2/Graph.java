@@ -18,4 +18,6 @@ public interface Graph <T>{
     boolean addVertex(T index ); 
     boolean addEdge (int u , int v ); 
     
+    AbstractGraph<T>.Tree dsf(int v);
+    AbstractGraph<T>.Tree bsf(int v);
 }
