@@ -14,7 +14,10 @@ public class Main {
         String path = "src//lab2//text.txt";
         Graph g = readGraphFromFile(path);
         g.printEdges();
-
+       // System.out.println(isConnected1(g));
+        System.out.println( abdulrahmanAlabrashGraph.getConnectedComponents(g));
+        
+        //System.out.println(isConnected(g));
     }
 
 
@@ -54,7 +57,10 @@ public class Main {
         }
         return true;
     }
-//bfs.getsize ==graph.getsize return true ;
+    public static boolean isConnected1(Graph g){
+        return g.getVertices().size()==g.bsf(0).getNumberOfVerticesFound();
+    }
+
 
 
 }
