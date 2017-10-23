@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package lab4.caseStudy;
+package lab5.caseStudy;
+
 
 import java.util.List;
 import javafx.scene.layout.Pane;
@@ -18,20 +19,17 @@ import lab4.*;
  * @author Berna
  */
 public class GraphViewCase extends Pane{
-    private Graph<? extends Displayable> graph;
+    private Graph<? extends DisplayTree.City> graph;
 	//to do: add a new data field tree with a set method
   private AbstractGraph.Tree tree;
 
   //to do: Construct a GraphViewCase with a specified tree and graph
 
-  public GraphViewCase(Graph<? extends Displayable> graph, AbstractGraph.Tree tree){
-    this.graph=graph;
-    this.tree = tree;
-  }
+  
 
   //to do: Construct a GraphViewCase with a specified graph
 
-  public GraphViewCase(Graph<? extends Displayable> graph){
+  public GraphViewCase(Graph<? extends DisplayTree.City> graph){
     this.graph=graph;
   }
 
@@ -59,16 +57,26 @@ public class GraphViewCase extends Pane{
       // Draw edges
       for (int i = 0; i < graph.getSize(); i++) {
         List<Integer> edges = graph.getNeighbors(i);
+        int x=0 ,y=0,v=0 ;
+        Line line;
         for (int j = 0; j < edges.size(); j++) {
-          int v = edges.get(j);
+           v = edges.get(j);
           int x1 = graph.getVertex(i).getX();
           int y1 = graph.getVertex(i).getY();
           int x2 = graph.getVertex(v).getX();
           int y2 = graph.getVertex(v).getY();
-
-          Line line = new Line(x1, y1, x2, y2);
-          getChildren().add(line);
+          try {
+            getChildren().addAll(new Line(x1, y1, x2, y2), 
+              new Text((x1 + x2) / 2, (y1 + y2) / 2 - 6, ((lab5.WeightedGraph)graph).getWeight(i, v) + ""));
+          }
+          catch (Exception ex) {
+            ex.printStackTrace();
+          }
+          //getChildren().add(line);
         }
+//         int w = graph.getVertex(v).getWigeht();
+//            System.out.println(w);
+//        getChildren().add( new Text (x,y+10,graph.getVertex(v).getWigeht()+""));
       }
 
       if(tree != null){
