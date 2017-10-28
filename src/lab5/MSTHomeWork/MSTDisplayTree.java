@@ -1,12 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package lab5.MSTHomeWork;
 
-
-import lab5.caseStudy.*;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,14 +7,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import lab4.AbstractGraph.Tree;
 import lab4.Displayable;
-import lab4.Graph;
 import lab5.WeightedGraph;
 
-/**
- *
- * @author Berna
+/*
+ * @author Abdulrahman Alabrash 
+ * 1421221032
  */
 public class MSTDisplayTree extends Application {
 
@@ -82,48 +73,8 @@ public class MSTDisplayTree extends Application {
         view.setTree(tree1);
         view.repaint();
 
-//        btDisplayDFS.setOnAction(e -> {
-//            String cityName = tfStartCity.getText();
-//
-//            int cityIndex = graph1.getIndex(new City(cityName, 0, 0));
-//
-//            if (cityIndex == -1) {
-//                view.setTree(null);
-//                lblStatus.setText("ERROR ERROR");
-//            } else {
-//                lblStatus.setText("");
-//                view.setTree(graph1.dfs(cityIndex));
-//
-//            }
-//            view.repaint();
-//
-//        });
-
-//        btDisplayBFS.setOnAction(e -> {
-//            String cityName = tfStartCity.getText();
-//
-//            int cityIndex = graph1.getIndex(new City(cityName, 0, 0));
-//
-//            if (cityIndex == -1) {
-//                view.setTree(null);
-//                lblStatus.setText("ERROR ERROR");
-//            } else {
-//                lblStatus.setText("");
-//                view.setTree(graph1.bfs(cityIndex));
-//
-//            }
-//            view.repaint();
-//		//to be implemented
-//            //take the city name
-//            //display the BFS tree starting from a specified city by invoking setTree method
-//	  /*If a city not in the map is entered, the program displays an error message in the label*/
-//        });
     }
 
-    /**
-     * The main method is only needed for the IDE with limited JavaFX support.
-     * Not needed for running from the command line.
-     */
     public static void main(String[] args) {
         launch(args);
     }

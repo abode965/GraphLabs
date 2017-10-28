@@ -1,15 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package lab5.ShortPath;
 
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import lab5.caseStudy.*;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -17,14 +10,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import lab4.AbstractGraph;
 import lab4.Displayable;
-import lab4.Graph;
 import lab5.WeightedGraph;
 
 /**
  *
- * @author Berna
+ * @author Abdulrahman Alabrash 
+ * 1421221032
  */
 public class ShortPathDisplayTree extends Application {
 
