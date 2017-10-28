@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package lab5.caseStudy;
+package lab5.ShortPath;
 
 
 import java.util.List;
@@ -18,22 +18,16 @@ import lab4.*;
  *
  * @author Berna
  */
-public class GraphViewCase extends Pane{
-    private Graph<? extends DisplayTree.City> graph;
-	//to do: add a new data field tree with a set method
+public class ShortPathGraphViewCase extends Pane{
+    private Graph<? extends ShortPathDisplayTree.City> graph;
+	
   private AbstractGraph.Tree tree;
-    
-  //to do: Construct a GraphViewCase with a specified tree and graph
-
-  
-
-  //to do: Construct a GraphViewCase with a specified graph
-
-  public GraphViewCase(Graph<? extends DisplayTree.City> graph){
+   
+  public ShortPathGraphViewCase(Graph<? extends ShortPathDisplayTree.City> graph){
     this.graph=graph;
 }
 
-  //to do: implement setTree method
+
     public void setTree(AbstractGraph.Tree tree) {
       this.tree = tree;
     }
@@ -42,7 +36,7 @@ public class GraphViewCase extends Pane{
     public void repaint() {
       getChildren().clear();
 
-      // Draw vertices
+  
       List<? extends Displayable> vertices = graph.getVertices();
 
       for (int i = 0; i < graph.getSize(); i++) {
@@ -54,7 +48,7 @@ public class GraphViewCase extends Pane{
                 new Text(x - 12, y - 12, name));
       }
 
-      // Draw edges
+  
       for (int i = 0; i < graph.getSize(); i++) {
         List<Integer> edges = graph.getNeighbors(i);
        for (int j = 0; j < edges.size(); j++) {
@@ -70,11 +64,9 @@ public class GraphViewCase extends Pane{
           catch (Exception ex) {
             ex.printStackTrace();
           }
-          //getChildren().add(line);
+          
         }
-//         int w = graph.getVertex(v).getWigeht();
-//            System.out.println(w);
-//        getChildren().add( new Text (x,y+10,graph.getVertex(v).getWigeht()+""));
+
       }
 
       if(tree != null){
@@ -82,20 +74,70 @@ public class GraphViewCase extends Pane{
        for (int i = 1; i < tree.getSearchOrder().size(); i++) {
          List<Integer> list = tree.getSearchOrder();
 
-         DisplayTree.City city = (DisplayTree.City) graph.getVertex(list.get(i));
+         ShortPathDisplayTree.City city = (ShortPathDisplayTree.City) graph.getVertex(list.get(i));
 
          int parentIndex = tree.getParent(list.get(i));
 
-         DisplayTree.City parentCity = (DisplayTree.City) graph.getVertex(parentIndex);
+         ShortPathDisplayTree.City parentCity = (ShortPathDisplayTree.City) graph.getVertex(parentIndex);
 
          drawArrowLine(parentCity.getX(),parentCity.getY(),city.getX(),city.getY());
 
 
        }
       }
+}
+    
+    public void repaintSPT(List<? extends Displayable> s){
+      getChildren().clear();
 
-      //to do: Highlight the edges in the spanning tree
-	  //invoke drawArrowLine method
+  
+      List<? extends Displayable> vertices = graph.getVertices();
+
+      for (int i = 0; i < graph.getSize(); i++) {
+        int x = vertices.get(i).getX();
+        int y = vertices.get(i).getY();
+        String name = vertices.get(i).getName();
+
+        getChildren().addAll(new Circle(x, y, 8),
+                new Text(x - 12, y - 12, name));
+      }
+       
+        for (int i = 0; i < graph.getSize(); i++) {
+        List<Integer> edges = graph.getNeighbors(i);
+       for (int j = 0; j < edges.size(); j++) {
+         int  v = edges.get(j);
+          int x1 = graph.getVertex(i).getX();
+          int y1 = graph.getVertex(i).getY();
+          int x2 = graph.getVertex(v).getX();
+          int y2 = graph.getVertex(v).getY();
+          try {
+            getChildren().addAll(new Line(x1, y1, x2, y2), 
+              new Text((x1 + x2) / 2, (y1 + y2) / 2 - 6, ((lab5.WeightedGraph)graph).getWeight(i, v) + ""));
+          }
+          catch (Exception ex) {
+            ex.printStackTrace();
+          }
+          
+        }
+
+      }
+
+      if(tree != null){
+        tree.printTree();
+       for (int i = 0; i < s.size()-1; i++) {
+//         List<Integer> list = tree.getSearchOrder();
+//
+//         ShortPathDisplayTree.City city = (ShortPathDisplayTree.City) graph.getVertex(list.get(i));
+//
+//         int parentIndex = tree.getParent(list.get(i));
+//
+//         ShortPathDisplayTree.City parentCity = (ShortPathDisplayTree.City) graph.getVertex(parentIndex);
+
+         drawArrowLine(s.get(i).getX(),s.get(i).getY(),s.get(i+1).getX(),s.get(i+1).getY());
+
+
+       }
+    }
     }
 
     public void drawArrowLine(int x1, int y1,

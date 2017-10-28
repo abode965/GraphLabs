@@ -3,9 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package lab5.caseStudy;
+package lab5.ShortPath;
 
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import lab5.caseStudy.*;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -13,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import lab4.AbstractGraph;
 import lab4.Displayable;
 import lab4.Graph;
 import lab5.WeightedGraph;
@@ -21,11 +26,11 @@ import lab5.WeightedGraph;
  *
  * @author Berna
  */
-public class DisplayTree extends Application {
+public class ShortPathDisplayTree extends Application {
 
     private TextField tfStartCity = new TextField();
-    private Button btDisplayDFS = new Button("Display DFS Tree");
-    private Button btDisplayBFS = new Button("Display BFS Tree");
+    private TextField tfEndCity = new TextField();
+    private Button btDisplaySP = new Button("Display Shortest Path");
     private Label lblStatus = new Label();
 
     private City[] vertices = {new City("Seattle", 75, 50),
@@ -54,8 +59,8 @@ public class DisplayTree extends Application {
         {10, 2, 1435}, {10, 4, 496}, {10, 8, 781}, {10, 11, 239},
         {11, 8, 810}, {11, 9, 1187}, {11, 10, 239}
     };
-    private Graph graph1 = new WeightedGraph(vertices, edges);
-    private GraphViewCase view = new GraphViewCase(graph1);
+    WeightedGraph<City> graph1 = new WeightedGraph<>(vertices,edges);
+    private ShortPathGraphViewCase view = new ShortPathGraphViewCase(graph1);
 
     @Override // Override the start method in the Application class
     public void start(Stage primaryStage) {
@@ -65,7 +70,7 @@ public class DisplayTree extends Application {
         HBox hBox = new HBox(5);
         hBox.setPadding(new Insets(5, 5, 5, 5));
         hBox.getChildren().addAll(new Label("Starting City:"), tfStartCity,
-                btDisplayDFS, btDisplayBFS);
+                new Label("Ending City"),tfEndCity, btDisplaySP);
         hBox.setAlignment(Pos.CENTER);
 
         pane.setBottom(hBox);
@@ -73,49 +78,38 @@ public class DisplayTree extends Application {
         BorderPane.setAlignment(lblStatus, Pos.CENTER);
 
         // Create a scene and place it in the stage
-        Scene scene = new Scene(pane, 750, 450);
-        primaryStage.setTitle("BFS/DFS"); // Set the stage title
+        Scene scene = new Scene(pane, 750, 500);
+        primaryStage.setTitle("Shortest Path "); // Set the stage title
         primaryStage.setScene(scene); // Place the scene in the stage
         primaryStage.show(); // Display the stage
 
         view.repaint();
 
-        btDisplayDFS.setOnAction(e -> {
-            String cityName = tfStartCity.getText();
-
-            int cityIndex = graph1.getIndex(new City(cityName, 0, 0));
-
-            if (cityIndex == -1) {
+        btDisplaySP.setOnAction(e -> {
+            String ScityName = tfStartCity.getText().trim();
+            String EcityName=tfEndCity.getText().trim();
+            
+            int ScityIndex = graph1.getIndex(new City(ScityName, 0, 0));
+            int EcityIndex = graph1.getIndex(new City(EcityName, 0, 0));
+            List<City> shortestPath=null;
+            if (ScityIndex == -1 || EcityIndex == -1) {
                 view.setTree(null);
                 lblStatus.setText("ERROR ERROR");
             } else {
                 lblStatus.setText("");
-                view.setTree(graph1.dfs(cityIndex));
+                WeightedGraph<City>.ShortestPathTree tree = 
+                     graph1.getShortestPath(ScityIndex);
+               shortestPath=tree.getPath(EcityIndex);
+               Collections.reverse(shortestPath);
+                view.setTree(tree);
+              
 
             }
-            view.repaint();
+            view.repaintSPT(shortestPath);
 
         });
 
-        btDisplayBFS.setOnAction(e -> {
-            String cityName = tfStartCity.getText();
-
-            int cityIndex = graph1.getIndex(new City(cityName, 0, 0));
-
-            if (cityIndex == -1) {
-                view.setTree(null);
-                lblStatus.setText("ERROR ERROR");
-            } else {
-                lblStatus.setText("");
-                view.setTree(graph1.bfs(cityIndex));
-
-            }
-            view.repaint();
-		//to be implemented
-            //take the city name
-            //display the BFS tree starting from a specified city by invoking setTree method
-	  /*If a city not in the map is entered, the program displays an error message in the label*/
-        });
+       
     }
 
     /**

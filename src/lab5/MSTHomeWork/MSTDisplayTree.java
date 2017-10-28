@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package lab5.caseStudy;
+package lab5.MSTHomeWork;
 
 
+import lab5.caseStudy.*;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -13,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import lab4.AbstractGraph.Tree;
 import lab4.Displayable;
 import lab4.Graph;
 import lab5.WeightedGraph;
@@ -21,11 +23,8 @@ import lab5.WeightedGraph;
  *
  * @author Berna
  */
-public class DisplayTree extends Application {
+public class MSTDisplayTree extends Application {
 
-    private TextField tfStartCity = new TextField();
-    private Button btDisplayDFS = new Button("Display DFS Tree");
-    private Button btDisplayBFS = new Button("Display BFS Tree");
     private Label lblStatus = new Label();
 
     private City[] vertices = {new City("Seattle", 75, 50),
@@ -54,8 +53,8 @@ public class DisplayTree extends Application {
         {10, 2, 1435}, {10, 4, 496}, {10, 8, 781}, {10, 11, 239},
         {11, 8, 810}, {11, 9, 1187}, {11, 10, 239}
     };
-    private Graph graph1 = new WeightedGraph(vertices, edges);
-    private GraphViewCase view = new GraphViewCase(graph1);
+    private WeightedGraph<City> graph1 = new WeightedGraph(vertices, edges);
+    private MSTGraphViewCase view = new MSTGraphViewCase(graph1);
 
     @Override // Override the start method in the Application class
     public void start(Stage primaryStage) {
@@ -64,8 +63,8 @@ public class DisplayTree extends Application {
 
         HBox hBox = new HBox(5);
         hBox.setPadding(new Insets(5, 5, 5, 5));
-        hBox.getChildren().addAll(new Label("Starting City:"), tfStartCity,
-                btDisplayDFS, btDisplayBFS);
+//        hBox.getChildren().addAll(new Label("Starting City:"), tfStartCity,
+//                btDisplayDFS, btDisplayBFS);
         hBox.setAlignment(Pos.CENTER);
 
         pane.setBottom(hBox);
@@ -74,48 +73,51 @@ public class DisplayTree extends Application {
 
         // Create a scene and place it in the stage
         Scene scene = new Scene(pane, 750, 450);
-        primaryStage.setTitle("BFS/DFS"); // Set the stage title
+        primaryStage.setTitle("MST"); // Set the stage title
         primaryStage.setScene(scene); // Place the scene in the stage
         primaryStage.show(); // Display the stage
 
         view.repaint();
+        WeightedGraph.MST tree1 = graph1.getMinimumSpanningTree();
+        view.setTree(tree1);
+        view.repaint();
 
-        btDisplayDFS.setOnAction(e -> {
-            String cityName = tfStartCity.getText();
+//        btDisplayDFS.setOnAction(e -> {
+//            String cityName = tfStartCity.getText();
+//
+//            int cityIndex = graph1.getIndex(new City(cityName, 0, 0));
+//
+//            if (cityIndex == -1) {
+//                view.setTree(null);
+//                lblStatus.setText("ERROR ERROR");
+//            } else {
+//                lblStatus.setText("");
+//                view.setTree(graph1.dfs(cityIndex));
+//
+//            }
+//            view.repaint();
+//
+//        });
 
-            int cityIndex = graph1.getIndex(new City(cityName, 0, 0));
-
-            if (cityIndex == -1) {
-                view.setTree(null);
-                lblStatus.setText("ERROR ERROR");
-            } else {
-                lblStatus.setText("");
-                view.setTree(graph1.dfs(cityIndex));
-
-            }
-            view.repaint();
-
-        });
-
-        btDisplayBFS.setOnAction(e -> {
-            String cityName = tfStartCity.getText();
-
-            int cityIndex = graph1.getIndex(new City(cityName, 0, 0));
-
-            if (cityIndex == -1) {
-                view.setTree(null);
-                lblStatus.setText("ERROR ERROR");
-            } else {
-                lblStatus.setText("");
-                view.setTree(graph1.bfs(cityIndex));
-
-            }
-            view.repaint();
-		//to be implemented
-            //take the city name
-            //display the BFS tree starting from a specified city by invoking setTree method
-	  /*If a city not in the map is entered, the program displays an error message in the label*/
-        });
+//        btDisplayBFS.setOnAction(e -> {
+//            String cityName = tfStartCity.getText();
+//
+//            int cityIndex = graph1.getIndex(new City(cityName, 0, 0));
+//
+//            if (cityIndex == -1) {
+//                view.setTree(null);
+//                lblStatus.setText("ERROR ERROR");
+//            } else {
+//                lblStatus.setText("");
+//                view.setTree(graph1.bfs(cityIndex));
+//
+//            }
+//            view.repaint();
+//		//to be implemented
+//            //take the city name
+//            //display the BFS tree starting from a specified city by invoking setTree method
+//	  /*If a city not in the map is entered, the program displays an error message in the label*/
+//        });
     }
 
     /**

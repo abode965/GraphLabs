@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package lab5.caseStudy;
+package lab5.MSTHomeWork;
 
 
+import lab5.caseStudy.*;
 import java.util.List;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -18,8 +19,8 @@ import lab4.*;
  *
  * @author Berna
  */
-public class GraphViewCase extends Pane{
-    private Graph<? extends DisplayTree.City> graph;
+public class MSTGraphViewCase extends Pane{
+    private Graph<? extends MSTDisplayTree.City> graph;
 	//to do: add a new data field tree with a set method
   private AbstractGraph.Tree tree;
     
@@ -29,7 +30,7 @@ public class GraphViewCase extends Pane{
 
   //to do: Construct a GraphViewCase with a specified graph
 
-  public GraphViewCase(Graph<? extends DisplayTree.City> graph){
+  public MSTGraphViewCase(Graph<? extends MSTDisplayTree.City> graph){
     this.graph=graph;
 }
 
@@ -82,11 +83,11 @@ public class GraphViewCase extends Pane{
        for (int i = 1; i < tree.getSearchOrder().size(); i++) {
          List<Integer> list = tree.getSearchOrder();
 
-         DisplayTree.City city = (DisplayTree.City) graph.getVertex(list.get(i));
+         MSTDisplayTree.City city = (MSTDisplayTree.City) graph.getVertex(list.get(i));
 
          int parentIndex = tree.getParent(list.get(i));
 
-         DisplayTree.City parentCity = (DisplayTree.City) graph.getVertex(parentIndex);
+         MSTDisplayTree.City parentCity = (MSTDisplayTree.City) graph.getVertex(parentIndex);
 
          drawArrowLine(parentCity.getX(),parentCity.getY(),city.getX(),city.getY());
 
