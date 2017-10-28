@@ -195,7 +195,7 @@ public class WeightedGraph<V> extends AbstractGraph<V> {
         }
       }
     } // End of while
-
+    
     // Create a ShortestPathTree
     return new ShortestPathTree(sourceVertex, parent, T, cost);
   }
