@@ -10,16 +10,66 @@ import java.util.logging.Logger;
  * @author FSMBLM1
  */
 public class Main {
+
     public static void main(String[] args) {
         String path = "src//lab2//text.txt";
-        Graph g = readGraphFromFile(path);
-        g.printEdges();
-       // System.out.println(isConnected1(g));
-        System.out.println( abdulrahmanAlabrashGraph.getConnectedComponents(g));
-        
-        //System.out.println(isConnected(g));
+        UnweightedGraph g = (UnweightedGraph) readGraphFromFile(path);
+       g.printEdges();
+        System.out.println("isConnected(g)\t"+isConnected(g));
+         System.out.println("isConnected1(g)/t"+isConnected1(g));
+        System.out.println("abdulrahmanAlabrashGraph.getConnectedComponents(g)\t"+abdulrahmanAlabrashGraph.getConnectedComponents(g));
+        System.out.println("isEulerian(g)\t"+isEulerian(g));
+        System.out.println("hasEulerTrail(g)\t"+hasEulerTrail(g));
+        System.out.println("isHamiltonian(g)\t"+isHamiltonian(g));
+       
     }
 
+    public static boolean isEulerian(UnweightedGraph g) {
+        boolean isConnected = g.getVertices().size() == g.bfs(0).getNumberOfVerticesFound();
+        for (int i = 0; i < g.getSize(); i++) {
+            if (g.getDegree(i) % 2 != 0) {
+                return false;
+            }
+        }
+        return isConnected && true;
+    }
+
+    public static boolean hasEulerTrail(UnweightedGraph g) {
+        boolean isConnected = g.getVertices().size() == g.bfs(0).getNumberOfVerticesFound();
+        int count = 0;
+        for (int i = 0; i < g.getSize(); i++) {
+            if (g.getDegree(i) % 2 != 0) {
+                count++;
+            }
+        }
+        if (count <= 2 && isConnected) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean isHamiltonian(UnweightedGraph g) {
+        ArrayList<Integer> degreeSquences = new ArrayList<>();
+        //ArrayList<Integer>m = new ArrayList<>();
+        for (int i = 0; i < g.getSize(); i++) {
+            degreeSquences.add(g.getDegree(i));
+        }
+        Collections.sort(degreeSquences);
+        double m = (double) g.getSize() / 2;
+        System.out.println("degreeSquences\t" + degreeSquences+"\t m= "+m+"\tsize"+degreeSquences.size());
+        
+            for (int j = 1; j < m; j++) {
+                if (degreeSquences.get(j-1) <= j) {//dm<=m
+                    if (degreeSquences.get(degreeSquences.size() - j-1) < degreeSquences.size() - j){ //d(n-m)<n-m
+                        System.out.print("d(n-m)"+degreeSquences.get(degreeSquences.size() - j)+"\tn-m");
+                        System.out.println(degreeSquences.size() - j);
+                        return false;
+                    }
+                }
+            }
+
+        return true;
+    }
 
     public static Graph readGraphFromFile(String path) {
         try {
@@ -46,6 +96,7 @@ public class Main {
         }
         return null;
     }
+
     public static boolean isConnected(Graph g) {
         for (int i = 0; i < g.getVertices().size(); i++) {
             List<Integer> temp = g.getNeighbors((int) g.getVertices().get(i));
@@ -57,10 +108,9 @@ public class Main {
         }
         return true;
     }
-    public static boolean isConnected1(Graph g){
-        return g.getVertices().size()==g.bsf(0).getNumberOfVerticesFound();
+
+    public static boolean isConnected1(Graph g) {
+        return g.getVertices().size() == g.bsf(0).getNumberOfVerticesFound();
     }
-
-
 
 }
