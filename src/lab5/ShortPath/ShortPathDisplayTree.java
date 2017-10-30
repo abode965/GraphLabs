@@ -83,22 +83,20 @@ public class ShortPathDisplayTree extends Application {
             
             int ScityIndex = graph1.getIndex(new City(ScityName, 0, 0));
             int EcityIndex = graph1.getIndex(new City(EcityName, 0, 0));
-            List<City> shortestPath=null;
             if (ScityIndex == -1 || EcityIndex == -1) {
                 view.setTree(null);
                 lblStatus.setText("ERROR ERROR");
+                view.repaintSPT(null);
             } else {
                 lblStatus.setText("");
-                WeightedGraph<City>.ShortestPathTree tree = 
-                     graph1.getShortestPath(ScityIndex);
-               shortestPath=tree.getPath(EcityIndex);
-               Collections.reverse(shortestPath);
+                WeightedGraph<City>.ShortestPathTree tree = graph1.getShortestPath(ScityIndex);
+                List<City> shortestPath=tree.getPath(EcityIndex);
+                Collections.reverse(shortestPath);
                 view.setTree(tree);
-              
-
-            }
             view.repaintSPT(shortestPath);
-
+            }
+            
+         
         });
 
        

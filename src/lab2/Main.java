@@ -14,9 +14,9 @@ public class Main {
     public static void main(String[] args) {
         String path = "src//lab2//text.txt";
         UnweightedGraph g = (UnweightedGraph) readGraphFromFile(path);
-       g.printEdges();
+        g.printEdges();
         System.out.println("isConnected(g)\t"+isConnected(g));
-         System.out.println("isConnected1(g)/t"+isConnected1(g));
+        System.out.println("isConnected1(g)/t"+isConnected1(g));
         System.out.println("abdulrahmanAlabrashGraph.getConnectedComponents(g)\t"+abdulrahmanAlabrashGraph.getConnectedComponents(g));
         System.out.println("isEulerian(g)\t"+isEulerian(g));
         System.out.println("hasEulerTrail(g)\t"+hasEulerTrail(g));
@@ -57,7 +57,6 @@ public class Main {
         Collections.sort(degreeSquences);
         double m = (double) g.getSize() / 2;
         System.out.println("degreeSquences\t" + degreeSquences+"\t m= "+m+"\tsize"+degreeSquences.size());
-        
             for (int j = 1; j < m; j++) {
                 if (degreeSquences.get(j-1) <= j) {//dm<=m
                     if (degreeSquences.get(degreeSquences.size() - j-1) < degreeSquences.size() - j){ //d(n-m)<n-m

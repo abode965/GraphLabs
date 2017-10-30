@@ -50,7 +50,7 @@ public class DisplayTree extends Application {
 
   private Graph<City> graph1 = new UnweightedGraph<>(vertices, edges);
   private GraphViewCase view = new GraphViewCase(graph1);
-
+  
   @Override // Override the start method in the Application class
   public void start(Stage primaryStage) {
     BorderPane pane = new BorderPane();

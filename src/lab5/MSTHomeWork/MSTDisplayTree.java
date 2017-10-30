@@ -64,11 +64,10 @@ public class MSTDisplayTree extends Application {
 
         // Create a scene and place it in the stage
         Scene scene = new Scene(pane, 750, 450);
-        primaryStage.setTitle("MST"); // Set the stage title
+        primaryStage.setTitle("MST by abdulrahman Alabrash"); // Set the stage title
         primaryStage.setScene(scene); // Place the scene in the stage
         primaryStage.show(); // Display the stage
 
-        view.repaint();
         WeightedGraph.MST tree1 = graph1.getMinimumSpanningTree();
         view.setTree(tree1);
         view.repaint();
