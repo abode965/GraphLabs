@@ -66,8 +66,8 @@ public class WeightedGraph<V> extends AbstractGraph<V> {
   }
 
   /** Return the weight on the edge (u, v) */
-  public double getWeight(int u, int v) throws Exception {
-    for (Edge edge : neighbors.get(u)) {
+  public int getWeight(int u, int v) throws Exception {
+      for (Edge edge : neighbors.get(u)) {
       if (edge.v == v) {
         return ((WeightedEdge)edge).weight;
       }
@@ -75,6 +75,16 @@ public class WeightedGraph<V> extends AbstractGraph<V> {
     
     throw new Exception("Edge does not exit");
   }
+  public void setWeight(int u, int v,int weight) throws Exception {
+    for (Edge edge : neighbors.get(u)) {
+      if (edge.v == v) {
+        ((WeightedEdge)edge).weight=weight;
+      }
+    }
+    
+    throw new Exception("Edge does not exit");
+  }
+  
   
   /** Display edges with weights */
   public void printWeightedEdges() {
@@ -90,7 +100,7 @@ public class WeightedGraph<V> extends AbstractGraph<V> {
   
  
   /** Add edges to the weighted graph */  
-  public boolean addEdge(int u, int v, double weight) {
+  public boolean addEdge(int u, int v, int weight) {
     return addEdge(new WeightedEdge(u, v, weight));
   }
 
