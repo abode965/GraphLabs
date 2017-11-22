@@ -1,5 +1,7 @@
 package lab8;
-
+//@ِAbdulrahman Alabrash
+//HomeWork#3 20-Nov-17
+//"You can't depend on your eyes when your imagination is out of focus."
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import lab5.*;
@@ -54,7 +56,7 @@ public class Ford_Fulkerson {
         return (isVisited[t] == true);
     }
 
-    static int maxFlow(int s, int t) throws Exception {
+    static int maxFlow(int s, int t) throws Exception  {
 
         int parent[] = new int[size];
         int max_flow = 0;
@@ -71,8 +73,13 @@ public class Ford_Fulkerson {
             for (int i = t; i != s; i = parent[i]) {
                 j = parent[i];
                 if (isEdge(j, i)) {
-                    residualGraph.setWeight(j, i, residualGraph.getWeight(j, i) - flow);
-                    residualGraph.setWeight(i, j, residualGraph.getWeight(i, j) + flow);
+                    try {
+                        residualGraph.setWeight(j, i, residualGraph.getWeight(j, i) - flow);
+                        residualGraph.setWeight(i, j, residualGraph.getWeight(i, j) + flow);
+                    } catch (Exception ex) {
+                      //  Logger.getLogger(Ford_Fulkerson.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
                 }
             }
 
